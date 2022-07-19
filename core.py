@@ -6,7 +6,7 @@ from abc import ABC
 import pandas as pd
 import numpy as np
 
-from config import Preferences
+from cli_display import Preferences
 
 
 FREQUENCIES = ["63", "140", "250", "500", "1000", "2000", "4000", "8000"]

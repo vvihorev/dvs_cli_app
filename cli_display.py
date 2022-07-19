@@ -1,5 +1,10 @@
-from config import Preferences
 from core import Engine, Criterion
+from typing import NamedTuple
+
+
+class Preferences(NamedTuple):
+    base_vibration_level: float
+    criterion: int
 
 
 def print_theory(criterion: int) -> None:
@@ -53,8 +58,3 @@ def _assign_engine_group(nu: int) -> int:
             return group
     return 0
 
-
-if __name__ == "__main__":
-    e = get_engine()
-    for key in e.keys():
-        print(f"{key}: {e[key]}")
