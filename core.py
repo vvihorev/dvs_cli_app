@@ -155,13 +155,3 @@ class SecondCriterion(Criterion):
             )
         return res
 
-
-if __name__ == "__main__":
-    import storage
-
-    preferences = Preferences(86, 2)
-    engine_data = storage.CsvStorage("data/base_engines.csv").load()
-    engine = engine_data.iloc[
-        1,
-    ].to_dict()
-    cc = CriteriaCalculator(preferences, engine_data)
