@@ -2,7 +2,7 @@ import unittest
 import sys
 from io import StringIO
 
-import dvs_criteria_cli
+import controller
 
 
 class TestCliDisplay(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestCliDisplay(unittest.TestCase):
         sys.stdin = StringIO(
             f"86\n2\nasdf\n123\n123\n123\n123\n123\n123\n123\n123\n123\n123\n"
         )
-        dvs_criteria_cli.main()
+        controller.main()
 
 
 if __name__ == "__main__":

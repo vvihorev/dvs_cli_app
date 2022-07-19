@@ -6,7 +6,7 @@ from abc import ABC
 import pandas as pd
 import numpy as np
 
-from cli_display import Preferences
+# from view import Preferences
 
 
 FREQUENCIES = ["63", "140", "250", "500", "1000", "2000", "4000", "8000"]
@@ -49,7 +49,7 @@ class CriteriaCalculator:
     вибрации для двигателя, также сохраняет столбцы B и D, значения
     коэффициентов регрессии для дебага.
     """
-    def __init__(self, preferences: Preferences, engine_parameters: pd.DataFrame):
+    def __init__(self, preferences, engine_parameters: pd.DataFrame):
         criteria = (FirstCriterion, SecondCriterion)
         self.criterion = criteria[preferences.criterion - 1](
             engine_parameters, preferences.base_vibration_level

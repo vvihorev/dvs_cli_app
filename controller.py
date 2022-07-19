@@ -1,21 +1,22 @@
 #!/usr/bin/env python3.10
-import cli_display
+from view import CLIInterface
+from model import CriteriaCalculator
 from storage import CsvStorage
-from core import CriteriaCalculator
 
 
 def main():
     # Create storage for input and output data.
-    engine_storage = CsvStorage("data/base_engines.csv")
-    reg_coeficients_storage = CsvStorage("output/regressions.csv")
-    B_D_storage = CsvStorage("output/B_D.csv")
-    vibrations_storage = CsvStorage("output/vibrations.csv")
+    engine_storage = CsvStorage("base_engines")
+    reg_coeficients_storage = CsvStorage("regression")
+    B_D_storage = CsvStorage("B_D")
+    vibrations_storage = CsvStorage("vibrations")
     engine_parameters = engine_storage.load()
 
     # Get user preferences and engine data.
-    preferences = cli_display.get_preferences()
-    cli_display.print_theory(preferences.criterion)
-    engine = cli_display.get_engine()
+    ui = CLIInterface()
+    preferences = ui.get_preferences()
+    ui.print_theory(preferences.criterion)
+    engine = ui.get_engine()
 
     # Calculate critetion required by user.
     calculator = CriteriaCalculator(preferences, engine_parameters)
