@@ -1,9 +1,7 @@
-from abc import ABC
-
 import pandas as pd
 
 
-class Storage(ABC):
+class Storage():
     def __init__(self, file):
         self.file = file
 
