@@ -32,3 +32,9 @@
     * Передает данные в ядро
     * Выводит результаты расчетов на дисплей
     * Сохраняет новые данные в хранилище
+
+Launch test with:
+  python3 -m unittest discover tests "*_test.py"
+or 
+  python3 -m pytest
+  
