@@ -1,6 +1,5 @@
 from config import Preferences
-from core import Engine
-import core
+from core import Engine, Criterion
 
 
 def print_theory(criterion: int) -> None:
@@ -10,8 +9,8 @@ def print_theory(criterion: int) -> None:
     print(theory)
 
 
-def print_vibrations():
-    pass
+def print_vibrations(criterion: Criterion):
+    print(criterion.results.df_vibrations)
 
 
 def get_preferences() -> Preferences:
