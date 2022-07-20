@@ -3,11 +3,6 @@ from typing import NamedTuple
 from model import Engine, Criterion
 
 
-class Preferences(NamedTuple):
-    base_vibration_level: float
-    criterion: int
-
-
 class CLIInterface:
     def print_theory(self, criterion: int) -> None:
         """Выводит теорию по программе для заданного номера критерия"""
