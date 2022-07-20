@@ -1,6 +1,7 @@
 from typing import NamedTuple
 
 from model import Engine, Criterion
+from preferences import Preferences
 
 
 class CLIInterface:
