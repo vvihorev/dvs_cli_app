@@ -1,13 +1,12 @@
 import math
-from typing import TypedDict
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from abc import ABC
+from typing import TypedDict
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from preferences import Preferences
-
 
 FREQUENCIES = ["63", "140", "250", "500", "1000", "2000", "4000", "8000"]
 
@@ -45,7 +44,7 @@ class CalculationResults:
 
 class CriteriaCalculator:
     """
-    Класс для расчет вибраций двигателя по заданному критерию. Рассчитывает
+    Класс для расчета вибраций двигателя по заданному критерию. Рассчитывает
     вибрации для двигателя, также сохраняет столбцы B и D, значения
     коэффициентов регрессии для дебага.
     """
@@ -66,8 +65,9 @@ class Criterion(ABC):
         self.regression_variables = ["a", "b"]
         self.results: CalculationResults = self._create_multiindexed_frames()
 
+    @abstractmethod
     def process_engine(self, engine: Engine) -> None:
-        raise NotImplementedError
+        pass
 
     def _get_omega(self, df_group):
         return df_group.nu.mean() * math.pi / 30
@@ -97,7 +97,16 @@ class Criterion(ABC):
 class FirstCriterion(Criterion):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.regression_variables = ["a", "b"]
+        self.regression_variables = ["C_1", "c"]
+
+    def process_engine(self, engine: Engine) -> None:
+        pass
+
+    def _calculate_B_D(self, df_frequency_group: pd.DataFrame, frequency: str):
+        pass
+
+    def _predict_vibration(self, df, C_2, k, frequency):
+        pass
 
 
 class SecondCriterion(Criterion):
@@ -113,24 +122,19 @@ class SecondCriterion(Criterion):
             ].copy()
             df_group["omega"] = self._get_omega(df_group)
 
+            frequency_count = 0
             for frequency in FREQUENCIES:
                 b_d_results = self._calculate_B_D(df_group, frequency)
                 C_2, k = self._linear_regression(b_d_results.B, b_d_results.D)
-                V = self._predict_vibration(df_group, C_2, k)
+                V = self._predict_vibration(df_group, C_2, k, frequency)
 
                 self.results.df_B_D[frequency, "B"][df_group.index] = b_d_results.B
                 self.results.df_B_D[frequency, "D"][df_group.index] = b_d_results.D
                 self.results.df_regression.loc[f"Group {group}", frequency] = C_2, k
-                self.results.df_vibrations.iloc[df_group.index] = V
+                self.results.df_vibrations.iloc[df_group.index, frequency_count] = V
+                frequency_count += 1
 
         self.engine_parameters.loc[len(self.engine_parameters.index)] = engine
-        for group in self.engine_parameters.group.unique():
-            df_group = self.engine_parameters[
-                self.engine_parameters.group == group
-            ].copy()
-            df_group["omega"] = self._get_omega(df_group)
-            for frequency in FREQUENCIES:
-                V = self._predict_vibration(df_group, C_2, k)
 
     def _calculate_B_D(self, df_frequency_group: pd.DataFrame, frequency: str):
         """Рассчитывает векторы B и D для одной полосы частот, по второму критерию."""
@@ -142,16 +146,5 @@ class SecondCriterion(Criterion):
         res["D"] = df.D_czvt / df.D_czb
         return res
 
-    def _predict_vibration(self, df, C_2, k):
-        res = pd.DataFrame()
-        for frequency in FREQUENCIES:
-            res[frequency] = (
-                C_2
-                * df.omega
-                * df.S_n**2
-                * df.D_c**2
-                * df.p_z
-                / (df.D_czvt + (-k) * df.D_czb)
-            )
-        return res
-
+    def _predict_vibration(self, df, C_2, k, frequency):
+        return C_2 * df.omega * df.S_n**2 * df.D_c**2 * df.p_z / (df.D_czvt + (-k) * df.D_czb)

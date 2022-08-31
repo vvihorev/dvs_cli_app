@@ -53,4 +53,4 @@ class SecondCriteriaCalculationsTest(unittest.TestCase):
     def test_vibrations_calculations(self):
         vibr = self.results.df_vibrations
         self.assertAlmostEqual(vibr.loc["6L278Rr", "500"], 111.178656483576)
-        self.assertAlmostEqual(vibr.loc["6L278PN", "500"], 142,177680030173)
+        self.assertAlmostEqual(vibr.loc["6L278PN", "500"], 142.177680030173)
