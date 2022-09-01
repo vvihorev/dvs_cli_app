@@ -48,6 +48,7 @@ class CriteriaCalculator:
     вибрации для двигателя, также сохраняет столбцы B и D, значения
     коэффициентов регрессии для дебага.
     """
+
     def __init__(self, preferences: Preferences, engine_parameters: pd.DataFrame):
         criteria = (FirstCriterion, SecondCriterion)
         self.criterion = criteria[preferences.criterion - 1](
@@ -56,6 +57,7 @@ class CriteriaCalculator:
 
     def get_engine_vibrations(self, engine: Engine) -> None:
         self.criterion.process_engine(engine)
+        # TODO: Engine vibrations calcluation is not implemented yet.
 
 
 class Criterion(ABC):
@@ -115,25 +117,23 @@ class SecondCriterion(Criterion):
         self.regression_variables = ["C_2", "k"]
 
     def process_engine(self, engine: Engine) -> None:
+        """Calculates B, D, regression coefficients, and vibrations for groups of engines on all frequencies."""
         self.engine_parameters["omega"] = 0
         for group in self.engine_parameters.group.unique():
             df_group = self.engine_parameters[
                 self.engine_parameters.group == group
             ].copy()
             df_group["omega"] = self._get_omega(df_group)
-
             frequency_count = 0
             for frequency in FREQUENCIES:
                 b_d_results = self._calculate_B_D(df_group, frequency)
                 C_2, k = self._linear_regression(b_d_results.B, b_d_results.D)
                 V = self._predict_vibration(df_group, C_2, k, frequency)
-
                 self.results.df_B_D[frequency, "B"][df_group.index] = b_d_results.B
                 self.results.df_B_D[frequency, "D"][df_group.index] = b_d_results.D
                 self.results.df_regression.loc[f"Group {group}", frequency] = C_2, k
                 self.results.df_vibrations.iloc[df_group.index, frequency_count] = V
                 frequency_count += 1
-
         self.engine_parameters.loc[len(self.engine_parameters.index)] = engine
 
     def _calculate_B_D(self, df_frequency_group: pd.DataFrame, frequency: str):
@@ -147,4 +147,11 @@ class SecondCriterion(Criterion):
         return res
 
     def _predict_vibration(self, df, C_2, k, frequency):
-        return C_2 * df.omega * df.S_n**2 * df.D_c**2 * df.p_z / (df.D_czvt + (-k) * df.D_czb)
+        return (
+            C_2
+            * df.omega
+            * df.S_n**2
+            * df.D_c**2
+            * df.p_z
+            / (df.D_czvt + (-k) * df.D_czb)
+        )

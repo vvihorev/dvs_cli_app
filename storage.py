@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class Storage():
+class Storage:
     def __init__(self, file):
         self.file = file
 
@@ -16,7 +16,7 @@ class CsvStorage(Storage):
     """Хранение данных в файле csv"""
 
     def __init__(self, file: str):
-        self.file = 'data/' + file + '.csv'
+        self.file = "data/" + file + ".csv"
 
     def load(self):
         return pd.read_csv(self.file)
@@ -27,5 +27,5 @@ class CsvStorage(Storage):
 
 class PostgresStorage(Storage):
     """Хранение данных в таблицах бд Postgres"""
-    pass
 
+    pass

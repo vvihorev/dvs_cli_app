@@ -11,17 +11,14 @@ class CLIInterface:
             theory = file.read()
         print(theory)
 
-
     def print_vibrations(self, criterion: Criterion):
         print(criterion.results.df_vibrations)
-
 
     def get_preferences(self) -> Preferences:
         """Запрашивает у пользователя настройки программы"""
         base_vibration_level = float(input("Задайте базовый уровень вибрации в дБ: "))
         criterion = int(input("Задайте номер критерия для расчета (1, 2): "))
         return Preferences(base_vibration_level, criterion)
-
 
     def get_engine(self) -> Engine:
         """Запрашивает у пользователя данные двигателя"""
@@ -47,7 +44,6 @@ class CLIInterface:
         engine["group"] = self._assign_engine_group(int(engine["nu"]))
         return engine
 
-
     def _assign_engine_group(self, nu: int) -> int:
         """Определяет номер группы двигателя по частоте вращения вала"""
         groups = {1: (0, 500), 2: (500, 750), 3: (750, 1500), 4: (1500, 10000)}
@@ -55,4 +51,3 @@ class CLIInterface:
             if groups[group][0] <= nu < groups[group][1]:
                 return group
         return 0
-
