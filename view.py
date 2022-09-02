@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-from model import Engine, Criterion, assign_engine_group
-from preferences import Preferences
+from model import Engine, Criterion, assign_engine_group, Preferences
 
 
 class UserInterface(ABC):

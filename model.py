@@ -1,12 +1,11 @@
 import math
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import TypeVar, TypedDict, Dict
+from typing import TypeVar, TypedDict, Dict, NamedTuple
 
 import numpy as np
 import pandas as pd
 
-from preferences import Preferences
 
 FREQUENCIES = ["63", "140", "250", "500", "1000", "2000", "4000", "8000"]
 
@@ -42,6 +41,11 @@ class CalculationResults:
     df_vibrations: pd.DataFrame
 
 
+class Preferences(NamedTuple):
+    base_vibration_level: float
+    criterion: int
+
+
 class VibrationsCalculator:
     def __init__(self, preferences: Preferences, table_engines: pd.DataFrame):
         criteria = [FirstCriterion, SecondCriterion]
@@ -50,9 +54,7 @@ class VibrationsCalculator:
         )
 
     def predict(self, engine: Engine) -> dict:
-        self.criterion.engine_vibrations = (
-            self.criterion.predict(engine)
-        )
+        self.criterion.engine_vibrations = self.criterion.predict(engine)
         return self.criterion.engine_vibrations
 
 
