@@ -20,9 +20,9 @@ def main():
 
     # Calculate critetion required by user.
     calculator = CriteriaCalculator(preferences, engine_parameters)
-    calculator.get_engine_vibrations(engine)
+    calculator.calculate_engine_vibrations(engine)
     criterion = calculator.criterion
-    # cli_display.print_vibrations(criterion)
+    ui.print_vibrations(criterion)
 
     # Save calculations data.
     reg_coeficients_storage.save(criterion.results.df_regression)

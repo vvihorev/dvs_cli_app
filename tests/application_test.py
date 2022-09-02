@@ -38,7 +38,7 @@ class SecondCriteriaCalculationsTest(unittest.TestCase):
                 "D_c": 500,
             }
         )
-        crit.process_engine(engine)
+        crit.predict_group_vibrations()
         self.results = crit.results
 
     def test_B_D_calculations(self):

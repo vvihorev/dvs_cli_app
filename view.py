@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from model import Engine, Criterion
+from model import Engine, Criterion, assign_engine_group
 from preferences import Preferences
 
 
@@ -9,7 +9,7 @@ class CLIInterface:
         """Выводит теорию по программе для заданного номера критерия"""
         with open(f"theory/criterion_{criterion}.txt", "r") as file:
             theory = file.read()
-        for paragraph in theory.split('\n'):
+        for paragraph in theory.split("\n"):
             if paragraph[:2] == "# ":
                 formatted_paragraph = self._center_text(paragraph[2:], display_width)
             elif paragraph[:2] == "eq":
@@ -20,7 +20,9 @@ class CLIInterface:
             print(formatted_paragraph)
 
     def print_vibrations(self, criterion: Criterion):
-        print(criterion.results.df_vibrations)
+        print(f"Прогнозные значения вибраций двигателя на частотных полосах:")
+        for level in criterion.engine_vibrations.keys():
+            print(f"{level}: {criterion.engine_vibrations[level][0]}")
 
     def get_preferences(self) -> Preferences:
         """Запрашивает у пользователя настройки программы"""
@@ -50,16 +52,9 @@ class CLIInterface:
 
         for brief_name in engine_parameters:
             engine[brief_name] = float(input(f"{engine_parameters[brief_name]}: "))
-        engine["group"] = self._assign_engine_group(int(engine["nu"]))
+        engine["group"] = assign_engine_group(int(engine["nu"]))
+        print("\n")
         return engine
-
-    def _assign_engine_group(self, nu: int) -> int:
-        """Определяет номер группы двигателя по частоте вращения вала"""
-        groups = {1: (0, 500), 2: (500, 750), 3: (750, 1500), 4: (1500, 10000)}
-        for group in groups.keys():
-            if groups[group][0] <= nu < groups[group][1]:
-                return group
-        return 0
 
     def _center_text(self, text, display_width):
         output = ""
