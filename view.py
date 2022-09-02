@@ -5,11 +5,19 @@ from preferences import Preferences
 
 
 class CLIInterface:
-    def print_theory(self, criterion: int) -> None:
+    def print_theory(self, criterion: int, display_width=80) -> None:
         """Выводит теорию по программе для заданного номера критерия"""
         with open(f"theory/criterion_{criterion}.txt", "r") as file:
             theory = file.read()
-        print(theory)
+        for paragraph in theory.split('\n'):
+            if paragraph[:2] == "# ":
+                formatted_paragraph = self._center_text(paragraph[2:], display_width)
+            elif paragraph[:2] == "eq":
+                formatted_paragraph = self._center_text(paragraph[2:], display_width)
+            else:
+                formatted_paragraph = self._wrap_text(paragraph, display_width)
+            formatted_paragraph += "\n"
+            print(formatted_paragraph)
 
     def print_vibrations(self, criterion: Criterion):
         print(criterion.results.df_vibrations)
@@ -18,6 +26,7 @@ class CLIInterface:
         """Запрашивает у пользователя настройки программы"""
         base_vibration_level = float(input("Задайте базовый уровень вибрации в дБ: "))
         criterion = int(input("Задайте номер критерия для расчета (1, 2): "))
+        print("\n")
         return Preferences(base_vibration_level, criterion)
 
     def get_engine(self) -> Engine:
@@ -51,3 +60,27 @@ class CLIInterface:
             if groups[group][0] <= nu < groups[group][1]:
                 return group
         return 0
+
+    def _center_text(self, text, display_width):
+        output = ""
+        if len(text) > display_width:
+            text = self._wrap_text(text, display_width)
+        for line in text.split("\n"):
+            if len(output) > 0:
+                output += "\n"
+            padding = " " * ((display_width - len(line)) // 2)
+            output += padding + line + padding
+        return output
+
+    def _wrap_text(self, text, display_width):
+        lines = 0
+        length = 0
+        output = ""
+        while length < len(text):
+            for word in text.split(" "):
+                length += len(word) + 1
+                if length // display_width > lines:
+                    lines += 1
+                    output += "\n"
+                output += word + " "
+        return output

@@ -1,3 +1,5 @@
 __pycache__
 data/*
 .vscode/settings.json
+.vscode/launch.json
+theory/criterion_2.txt
