@@ -3,7 +3,7 @@ import sys
 from io import StringIO
 
 from storage import CsvStorage
-from model import SecondCriterion, Engine
+from model import SecondCriterion, Engine, assign_engine_group
 import controller
 
 
@@ -21,24 +21,25 @@ class SecondCriteriaCalculationsTest(unittest.TestCase):
     """Unit test. Test correctness of calculations performed with enginges"""
 
     def setUp(self):
-        engine_parameters = CsvStorage("base_engines").load()
-        crit = SecondCriterion(engine_parameters, 86.0)
+        table_engines = CsvStorage("base_engines").load()
+        crit = SecondCriterion(table_engines, 86.0)
         engine = Engine(
             {
                 "name": "test engine",
                 "nu": 500,
-                "N_e": 500,
-                "p_e": 500,
-                "p_z": 500,
-                "S_n": 500,
-                "N_max": 500,
+                "N_e": 294,
+                "p_e": 0.54,
+                "p_z": 5.1,
+                "S_n": 0.36,
+                "N_max": 16490,
                 "delta": 500,
-                "D_czb": 500,
-                "D_czvt": 500,
-                "D_c": 500,
+                "D_czb": 0.0002,
+                "D_czvt": 13610,
+                "D_c": 81780,
             }
         )
-        crit.predict_group_vibrations()
+        engine["group"] = assign_engine_group(engine["nu"])
+        crit.predict(engine)
         self.results = crit.results
 
     def test_B_D_calculations(self):

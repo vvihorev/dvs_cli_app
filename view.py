@@ -1,10 +1,28 @@
-from typing import NamedTuple
+from abc import ABC, abstractmethod
 
 from model import Engine, Criterion, assign_engine_group
 from preferences import Preferences
 
 
-class CLIInterface:
+class UserInterface(ABC):
+    @abstractmethod
+    def get_preferences(self) -> Preferences:
+        pass
+
+    @abstractmethod
+    def get_user_engine(self) -> Engine:
+        pass
+
+    @abstractmethod
+    def print_theory(self, criterion: int) -> None:
+        pass
+
+    @abstractmethod
+    def print_vibrations(self) -> None:
+        pass
+
+
+class CLIInterface(UserInterface):
     def print_theory(self, criterion: int, display_width=80) -> None:
         """Выводит теорию по программе для заданного номера критерия"""
         with open(f"theory/criterion_{criterion}.txt", "r") as file:
@@ -22,7 +40,7 @@ class CLIInterface:
     def print_vibrations(self, criterion: Criterion):
         print(f"Прогнозные значения вибраций двигателя на частотных полосах:")
         for level in criterion.engine_vibrations.keys():
-            print(f"{level}: {criterion.engine_vibrations[level][0]}")
+            print(f"{level}: {criterion.engine_vibrations[level]}")
 
     def get_preferences(self) -> Preferences:
         """Запрашивает у пользователя настройки программы"""
@@ -31,13 +49,13 @@ class CLIInterface:
         print("\n")
         return Preferences(base_vibration_level, criterion)
 
-    def get_engine(self) -> Engine:
+    def get_user_engine(self) -> Engine:
         """Запрашивает у пользователя данные двигателя"""
         engine = Engine()
         print("\nВведите данные двигателя:")
         engine["name"] = input("Марка: ")
 
-        engine_parameters = {
+        table_engines = {
             "nu": "Частота вращения n: ",
             "N_e": "Эффективная мощность N_e: ",
             "p_e": "Среднее эффективное давление p_e: ",
@@ -50,8 +68,8 @@ class CLIInterface:
             "D_c": "Диаметр цилиндра D_c: ",
         }
 
-        for brief_name in engine_parameters:
-            engine[brief_name] = float(input(f"{engine_parameters[brief_name]}: "))
+        for brief_name in table_engines:
+            engine[brief_name] = float(input(f"{table_engines[brief_name]}: "))
         engine["group"] = assign_engine_group(int(engine["nu"]))
         print("\n")
         return engine
