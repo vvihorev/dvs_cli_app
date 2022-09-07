@@ -16,7 +16,7 @@ class CliDisplayTest(unittest.TestCase):
         )
         controller.main()
 
-    def test_sample_first_criteria(self):
+    def test_sample_second_criteria(self):
         sys.stdin = StringIO(
             "86\n2\ntest engine\n500\n294\n0.54\n5.1\n0.36\n16490\n0.0002\n81780\n13610\n1\n"
         )
@@ -25,6 +25,7 @@ class CliDisplayTest(unittest.TestCase):
 
 class FirstCriteriaCalculationsTest(unittest.TestCase):
     """Unit test. Test correctness of calculations performed with enginges"""
+
     # TODO: rewrite tests for first criteria based on hand calculated results
 
     def setUp(self):

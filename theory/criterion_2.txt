@@ -1,8 +1,57 @@
-# This is theory on the second criteria
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Sed nisi lacus sed viverra tellus in hac habitasse platea. Vel orci porta non pulvinar. Id neque aliquam vestibulum morbi blandit cursus risus at ultrices. Mi bibendum neque egestas congue quisque egestas diam. Euismod nisi porta lorem mollis. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Risus nullam eget felis eget. Leo vel orci porta non pulvinar neque laoreet suspendisse. Enim praesent elementum facilisis leo vel fringilla est ullamcorper eget. Cras ornare arcu dui vivamus. Duis at tellus at urna. Quam vulputate dignissim suspendisse in est. Cras tincidunt lobortis feugiat vivamus at augue.
-Dolor purus non enim praesent elementum facilisis leo vel. Vel fringilla est ullamcorper eget nulla facilisi. Nec ultrices dui sapien eget mi proin sed libero. Sagittis nisl rhoncus mattis rhoncus urna neque. Interdum varius sit amet mattis vulputate enim. Amet nulla facilisi morbi tempus iaculis urna id. Lacus suspendisse faucibus interdum posuere lorem. Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Hendrerit gravida rutrum quisque non tellus orci. Eget egestas purus viverra accumsan in. Erat imperdiet sed euismod nisi porta lorem mollis. Etiam erat velit scelerisque in dictum non consectetur a erat. Et leo duis ut diam quam. Ultrices tincidunt arcu non sodales neque sodales. Felis eget velit aliquet sagittis. Odio morbi quis commodo odio aenean sed adipiscing diam. Non blandit massa enim nec dui nunc mattis enim ut. Volutpat est velit egestas dui. Mi quis hendrerit dolor magna eget.
-eq 5 + 5 = 10
-Mi bibendum neque egestas congue quisque egestas diam in arcu. Felis imperdiet proin fermentum leo vel. Quis blandit turpis cursus in hac habitasse. A iaculis at erat pellentesque adipiscing. Vestibulum lectus mauris ultrices eros in cursus turpis. Id volutpat lacus laoreet non curabitur gravida arcu ac tortor. Ullamcorper sit amet risus nullam eget. Vitae justo eget magna fermentum iaculis eu non. Orci a scelerisque purus semper eget duis at tellus at. Purus semper eget duis at tellus at urna. Odio ut enim blandit volutpat maecenas volutpat blandit aliquam. Nisi vitae suscipit tellus mauris a diam maecenas sed enim. In nisl nisi scelerisque eu ultrices vitae auctor eu augue. Nulla facilisi morbi tempus iaculis urna. Lacus laoreet non curabitur gravida arcu ac tortor dignissim. Molestie nunc non blandit massa enim nec dui. At volutpat diam ut venenatis tellus in metus vulputate. A erat nam at lectus urna duis. Blandit aliquam etiam erat velit scelerisque in dictum. Semper feugiat nibh sed pulvinar proin gravida.
-# Gubidy gubidy ;alsjdflka sdjf;lkasjd lfaslkjf;lkajs dlaj;lkdsjfla lfjslkjf lalkdfj ;lajdsflsaj;dkj aldsjf l
-Metus aliquam eleifend mi in nulla. Faucibus vitae aliquet nec ullamcorper. Neque laoreet suspendisse interdum consectetur. Scelerisque eu ultrices vitae auctor eu augue ut lectus arcu. Nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Iaculis nunc sed augue lacus viverra vitae. Phasellus faucibus scelerisque eleifend donec. Sed vulputate odio ut enim blandit volutpat maecenas volutpat. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Faucibus in ornare quam viverra orci sagittis. Mattis nunc sed blandit libero volutpat. Dis parturient montes nascetur ridiculus mus mauris vitae. Habitasse platea dictumst quisque sagittis. Odio tempor orci dapibus ultrices. Viverra vitae congue eu consequat ac felis.
-Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis. Massa eget egestas purus viverra accumsan in nisl nisi. Id interdum velit laoreet id donec ultrices tincidunt. Nec feugiat nisl pretium fusce id. Commodo quis imperdiet massa tincidunt. Vivamus arcu felis bibendum ut tristique et egestas quis. Tristique nulla aliquet enim tortor at auctor urna nunc id. Duis at tellus at urna condimentum mattis. Volutpat diam ut venenatis tellus in. Hac habitasse platea dictumst quisque sagittis purus. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Diam maecenas ultricies mi eget.
+ПРОГРАММА ДЛЯ ЭВМ 
+«Программа расчёта коэффициентов критериального уравнения для оценки виброскорости дизеля, вызванной газодинамическими процессами при сгорании топлива»Основными задачами при исследовании вибрационного состояния двигателей являются снижение вибрации в источнике их возникновения, выявление возможности уменьшения передачи колебательной энергии через опорные связи, изучение основных закономерностей передачи этой энергии, уменьшение интенсивности звуковой вибрации с помощью демпфирующих покрытий, а также установки глушителей шума на впуске и выпуске.
+Перекладка поршня – не единственный фактор, обусловливающий вибрацию втулок цилиндров и других деталей остова. Важную роль в  виброакустическом излучении ДВС играет процесс сгорания топлива.
+Определить характер колебаний втулок цилиндров, порождаемых рабочим процессом, можно на основе уравнений динамики оболочек, описывающих напряжённое и деформированное их состояние, когда под действием внешних нагрузок прогибы оболочек могут быть соизмеримы с толщиной.  На основе теоретического анализа уравнений, описывающих вынужденные колебания оболочек, и использования методов теории подобия получен критерий, позволяющий оценить влияние на уровень вибраций втулок и блоков цилиндров, газодинамических процессов при сгорании топлива: .
+Методика построения приведена в: Тузов, Л.В. Вибрация судовых двигателей внутреннего сгорания /Л.В. Тузов, О.К. Безюков, О.В. Афанасьева.– СПб.: СПБГПУ, 2012.– 348 с. 
+Данный критерий включает в себя: такие характеристики как жесткость блока () и жесткость втулки () цилиндров, максимальное давление цикла (), ход поршня (), диаметр цилиндра (), k  – эмпирический коэффициент, зависящий от конструктивных особенностей ДВС и демпфирующих свойств его материалов.
+Цилиндрическую (изгибную) жесткость можно рассчитать по формуле:
+ ,где    - коэффициент Пуассона, - модуль упругости.
+В качестве исходных данных были использованы значения виброскорости, измеренные на лапах 23 типов дизелей (табл.1), приведённые в Руководящем техническом материале РТМ 212.0060-76 (Руководящий технический материал. Комплекс противошумных мероприятий на судах речного флота: РТМ 212.0060-76. – Л.: Транспорт. ЛИВТ, 1978. – С. 88 – 94.). 
+В таблице 2 приведены основные характеристики наиболее распространённых дизелей речного флота.
+Для того чтобы обеспечить высокую точность вычисления коэффициентов, целесообразно их определять для групп дизелей с одинаковой степенью форсирования.
+Результаты измерений вибрации принято представлять как уровни в определённом диапазоне частот. Уровень скорости вычисляют по формуле [Справочник по технической акустике: Пер. с нем. / Под ред. М. Хекла и Х.А. Мюллера.- Л.: Судостроение, 1980.- С. 66]:где  – эффективное значение замеренной скорости,  -  м/с – пороговое значение скорости.Таблица 1.  Средние уровни вибрации на лапах дизелей по скорости, дБМарка и
+характеристики
+двигателя
+При вычислении виброскорости, выраженной в децибелах, пороговый уровень был принят равным 5.10-6 мм/с.
+Расчёт коэффициентов критериального уравнения для оценки виброскорости дизеля, вызванной газодинамическими процессами при сгорании топлива, происходит в несколько этапов. Алгоритм работы программы представлен рис.1. В табл. 3 приведено подробное описание  работы программы.
+Рис. 1 - — Блок-схема программы Вначале, после запуска программы, предлагается ознакомиться с основными теоретическими положениями, положенными в основу критериального уравнения. Также представляется информация с основными характеристиками для наиболее распространённых дизелей речного флота и о среднем уровне вибрации этих дизелей, измеренных на лапах дизелей по скорости (рис.2). 
+При запуске программы в окно командной строки выводится титульный лист и теория по исследуемой теме. Пример вывода представлен на рисунке 2.
+………………………
+Рисунок 2. - Вывод теории по задаче
+Далее выводятся табличные данные о параметрах двигателей, включенных в набор исходных данных. Пример вывода представлен на рисунках 3 и 4.
+………………………Рисунок 4 — Вывод табличных данных о двигателях
+………………………Рисунок 4 — Вывод табличных данных о среднем уровне вибрации, измеренной на лапах двигателяДвигатели подразделяются на четыре группы по номинальной частоте вращения коленчатого вала.
+ На основании исходных данных двигателей рассчитываются коэффициенты критериального уравнения для оценки виброскорости дизеля, вызванной перекладкой поршня в тепловом зазоре между зеркалом втулки цилиндра и тронком поршня, для каждой из групп. Пример полученных значений представлен на рисунке 5.………………………
+Рисунок 5 — Вывод таблицы коэффициентов критериального уравненияУ пользователя запрашиваются параметры исследуемого двигателя, пример ввода данных представлен на рисунке 6.………………………
+Рисунок 6 — Ввод данных исследуемого двигателяЗатем предлагается ввести дополнительные данные о двигателях, для уточнения значений коэффициентов критериального уравнения, введенные данные добавляются к данным исходной таблицы, введенному пользователем двигателю, по частоте вращения коленчатого вала, присваивается группа. 
+Значения коэффициентов критериального уравнения пересчитываются для каждой из групп дизелей. После окончания ввода дополнительных данных о двигателях, рассчитываются значения вибрации для исследуемого двигателя, пример полученных значений представлен на рисунке 7.………………………Рисунок 7 — Вывод рассчитанных значений вибрации для исследуемого двигателя по октавным полосамПри завершении работы программы, табличные данные о параметрах двигателей (как исходных, так и введенных в систему пользователем) сохраняются в таблицу xlsx, которая помещается в папку «results». Пример таблицы представлен на рисунке 8.
+………………………Рисунок 8 — Вывод табличных значений для всех двигателей
+Рассчитанные значения коэффициентов критериального уравнения для четырех групп двигателей, для каждой из октавных полос сохраняются в таблицу xlsx, в папке «results». Пример полученной таблицы представлен на рисунке 8.………………………
+Рисунок 8 — Таблица рассчитанных значений критериального уравненияМетод вычисления коэффициентов, положенный в основу нахождения коэффициентов в уравненииКритерий, позволяющий оценить влияние на уровень вибраций втулок и блоков цилиндров, газодинамических процессов при сгорании топлива:
+ .					(1)
+Для нахождения конкретных значений неизвестных C, k выражение (1) целесообразно переписать в следующем виде:
+.Или
+.			                          (2)
+Пусть  – количество исследуемых дизелей.
+Для удобства вычислений введём следующие обозначения:
+		и		 .Заметим, что  и  – это одностолбцовые матрицы, каждая из которых состоит из  элементов.
+Тогда последовательность уравнений (2) перепишется в следующем виде:	
+					(3)
+В итоге получена система из  уравнений с двумя неизвестными,  k и C.
+При нахождении двух неизвестных в системе из  уравнений применяется метод наименьших квадратов. 
+В результате мы получили методику определения константы k и промежуточной константы C.
+Для определения значений всех параметров в уравнении, необходимы иметь следующие данные:База основных паспортных данных дизелей
+1. эффективная мощность Nе, кВт;
+2. номинальная частота вращения коленчатого вала , мин-1;
+3. среднее эффективное давление , МПа; 
+4. максимальное давление цикла , МПа.База основных конструктивных дизелей
+1. средняя толщина втулки цилиндра , м;
+2. средняя толщина блока , м; 
+3. диаметр цилиндра , м;
+4. ход поршня, м.На основании этих данных вычисляются промежуточные характеристики:
+Основные промежуточные характеристики дизелей
+1. Жёсткость блока :
+,
+где - модуль упругости (для стали МПа, для серого чугуна  МПа,  для модифицированного чугуна МПа [Анурьев В.И. Справочник конструктора-машиностроителя: В 3 т. Т.1. - 8-е изд., перераб. И доп. Под ред. И.Н. Жестковой. – М.: Машиностроение, 2001. – С. 34.]);  - коэффициент Пуассона; (для стали , для чугуна  [Анурьев В.И. Справочник конструктора-машиностроителя: В 3 т. Т.1. - 8-е изд., перераб. И доп. Под ред. И.Н. Жестковой. – М.: Машиностроение, 2001. – С. 34.]); -толщина блока.
+2. Жёсткость втулки цилиндра , ;
+3.  - площадь поршня.4Угловая скорость , рад/с.

@@ -1,7 +1,7 @@
 import math
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import TypeVar, TypedDict, Dict, NamedTuple, Tuple
+from typing import TypedDict, Dict, NamedTuple, Tuple
 
 import numpy as np
 import pandas as pd
@@ -103,7 +103,7 @@ class Criterion(ABC):
         for frequency in FREQUENCIES:
             # TODO: values are too large
             a, b = self.results.df_regression.loc[f'Group {engine["group"]}', frequency]
-            engine_vibrations[frequency] = self.predict_vibration(df, a, b)[0] 
+            engine_vibrations[frequency] = self.predict_vibration(df, a, b)[0]
         return engine_vibrations
 
     def create_results_frames(self) -> CalculationResults:
@@ -116,7 +116,9 @@ class Criterion(ABC):
             self.regression_variables * 4,
         ]
         df_regression = pd.DataFrame(index=arrays, columns=FREQUENCIES)
-        df_B_D = pd.DataFrame(index=self.table_engines.name, columns=[*FREQUENCIES, "D"])
+        df_B_D = pd.DataFrame(
+            index=self.table_engines.name, columns=[*FREQUENCIES, "D"]
+        )
         df_vibrations = pd.DataFrame(index=self.table_engines.name, columns=FREQUENCIES)
         return CalculationResults(df_B_D, df_regression, df_vibrations)
 
@@ -125,7 +127,9 @@ class Criterion(ABC):
         return df_group.nu.mean() * math.pi / 30
 
     @abstractmethod
-    def calculate_B_D(self, df_frequency_group: pd.DataFrame, frequency: str) -> pd.DataFrame:
+    def calculate_B_D(
+        self, df_frequency_group: pd.DataFrame, frequency: str
+    ) -> pd.DataFrame:
         """Calculates B and D vectors for engines of given group and frequency."""
         pass
 
@@ -150,19 +154,16 @@ class FirstCriterion(Criterion):
         """Calculates B and D vectors for engines of one group and one frequency"""
         df = df_frequency_group
         res = pd.DataFrame()
-        res['B'] = -df.S_n * df.omega * df.N_max * df.delta / (df[frequency] * df.D_czb)
-        res['D'] = -df.D_czvt / df.D_czb
+        res["B"] = -df.S_n * df.omega * df.N_max * df.delta / (df[frequency] * df.D_czb)
+        res["D"] = -df.D_czvt / df.D_czb
         return res
 
     def predict_vibration(self, df, C_1, c):
-        assert len(df.group.unique()) == 1, f"Usage: pass one group of engines at a time as 'df'"
+        assert (
+            len(df.group.unique()) == 1
+        ), "Usage: pass one group of engines at a time as 'df'"
         return (
-            C_1
-            * df.omega
-            * df.S_n
-            * df.N_max
-            * df.delta
-            / (c * df.D_czb + df.D_czvt)
+            C_1 * df.omega * df.S_n * df.N_max * df.delta / (c * df.D_czb + df.D_czvt)
         )
 
 
@@ -183,7 +184,9 @@ class SecondCriterion(Criterion):
 
     def predict_vibration(self, df: pd.DataFrame, C_2: float, k: float) -> pd.Series:
         """Calculates predicted vibrations for engines of one group and one frequency."""
-        assert len(df.group.unique()) == 1, f"Usage: pass one group of engines at a time as 'df'"
+        assert (
+            len(df.group.unique()) == 1
+        ), "Usage: pass one group of engines at a time as 'df'"
         return (
             C_2
             * df.omega

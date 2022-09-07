@@ -31,14 +31,15 @@ class CLIInterface(UserInterface):
                 formatted_paragraph = self._center_text(paragraph[2:], display_width)
             elif paragraph[:2] == "eq":
                 formatted_paragraph = self._center_text(paragraph[2:], display_width)
+                formatted_paragraph = f"\n{formatted_paragraph}\n"
             else:
                 formatted_paragraph = self._wrap_text(paragraph, display_width)
-            formatted_paragraph += "\n"
+                formatted_paragraph = "    " + formatted_paragraph
             print(formatted_paragraph)
 
     def print_vibrations(self, criterion: Criterion):
         """Prints predicted vibrations for the user engine."""
-        print(f"Прогнозные значения вибраций двигателя на частотных полосах:")
+        print("Прогнозные значения вибраций двигателя на частотных полосах:")
         for level in criterion.engine_vibrations.keys():
             print(f"{level}: {criterion.engine_vibrations[level]}")
 
