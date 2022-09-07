@@ -44,8 +44,8 @@ class SecondCriteriaCalculationsTest(unittest.TestCase):
 
     def test_B_D_calculations(self):
         b_d = self.results.df_B_D
-        self.assertAlmostEqual(b_d.loc["6L278Rr", ("500", "B")], 1.19913696681069e-05)
-        self.assertAlmostEqual(b_d.loc["6L278Rr", ("500", "D")], 0.216)
+        self.assertAlmostEqual(b_d.loc["6L278Rr", ("500")], 1.19913696681069e-05)
+        self.assertAlmostEqual(b_d.loc["6L278Rr", ("D")], 0.216)
 
     def test_regression_calculations(self):
         regr = self.results.df_regression

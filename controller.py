@@ -21,7 +21,7 @@ def main():
 
     # Calculate critetion required by user.
     calculator = VibrationsCalculator(preferences, table_engines)
-    calculator.predict(user_engine)
+    calculator.process_user_engine(user_engine)
     criterion = calculator.criterion
     ui.print_vibrations(criterion)
 

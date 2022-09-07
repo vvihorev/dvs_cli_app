@@ -1,7 +1,7 @@
 import math
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import TypeVar, TypedDict, Dict, NamedTuple
+from typing import TypeVar, TypedDict, Dict, NamedTuple, Tuple
 
 import numpy as np
 import pandas as pd
@@ -55,7 +55,7 @@ class VibrationsCalculator:
             table_engines, preferences.base_vibration_level
         )
 
-    def predict(self, engine: Engine) -> dict:
+    def process_user_engine(self, engine: Engine) -> dict:
         self.criterion.engine_vibrations = self.criterion.predict(engine)
         return self.criterion.engine_vibrations
 
@@ -83,12 +83,12 @@ class Criterion(ABC):
                 b_d_results = self.calculate_B_D(df_group, frequency)
                 a, b = self.linear_regression(b_d_results.B, b_d_results.D)
                 V = self.predict_vibration(df_group, a, b)
-                self.results.df_B_D[frequency, "B"][df_group.index] = b_d_results.B
-                self.results.df_B_D[frequency, "D"][df_group.index] = b_d_results.D
+                self.results.df_B_D[frequency][df_group.index] = b_d_results.B
+                self.results.df_B_D["D"][df_group.index] = b_d_results.D
                 self.results.df_regression.loc[f"Group {group}", frequency] = a, b
                 self.results.df_vibrations.iloc[df_group.index, frequency_count] = V
 
-    def predict(self, engine):
+    def predict(self, engine) -> Dict[str, float]:
         """
         Using regression coefficients for group of engines,
         predicts vibrations on each frequency for user engine.
@@ -112,19 +112,15 @@ class Criterion(ABC):
         frames for B_D and regression are created multiindexed.
         """
         arrays = [
-            [FREQUENCIES[i // 2] for i in range(len(FREQUENCIES) * 2)],
-            ["B", "D"] * len(FREQUENCIES),
-        ]
-        df_B_D = pd.DataFrame(index=self.table_engines.name, columns=arrays)
-        arrays = [
             [f"Group {i // 2 + 1}" for i in range(8)],
             self.regression_variables * 4,
         ]
         df_regression = pd.DataFrame(index=arrays, columns=FREQUENCIES)
+        df_B_D = pd.DataFrame(index=self.table_engines.name, columns=[*FREQUENCIES, "D"])
         df_vibrations = pd.DataFrame(index=self.table_engines.name, columns=FREQUENCIES)
         return CalculationResults(df_B_D, df_regression, df_vibrations)
 
-    def get_omega(self, df_group):
+    def get_omega(self, df_group: pd.DataFrame) -> float:
         """Calculates omega for given group of engines."""
         return df_group.nu.mean() * math.pi / 30
 
@@ -133,7 +129,7 @@ class Criterion(ABC):
         """Calculates B and D vectors for engines of given group and frequency."""
         pass
 
-    def linear_regression(self, x, y):
+    def linear_regression(self, x, y) -> Tuple[int]:
         """Calculates linear regression coefficients for input vectors."""
         A = np.vstack([x, np.ones(len(x))]).T
         a, b = np.linalg.lstsq(A, y, rcond=None)[0]
@@ -172,7 +168,7 @@ class SecondCriterion(Criterion):
         res["D"] = df.D_czvt / df.D_czb
         return res
 
-    def predict_vibration(self, df, C_2, k):
+    def predict_vibration(self, df: pd.DataFrame, C_2: float, k: float) -> pd.Series:
         """Calculates predicted vibrations for engines of one group and one frequency."""
         assert len(df.group.unique()) == 1, f"Usage: pass one group of engines at a time as 'df'"
         return (
