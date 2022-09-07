@@ -5,3 +5,4 @@ data/vibrations.csv
 .vscode/settings.json
 .vscode/launch.json
 data/hand_calculated_results.xlsx
+db.sqlite
