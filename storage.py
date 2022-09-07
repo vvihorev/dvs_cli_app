@@ -3,6 +3,8 @@ import pandas as pd
 
 
 class Storage(ABC):
+    """Storage interface"""
+
     def __init__(self, file):
         self.file = file
 
@@ -16,7 +18,7 @@ class Storage(ABC):
 
 
 class CsvStorage(Storage):
-    """Хранение данных в файле csv"""
+    """Store data using csv files."""
 
     def __init__(self, file: str):
         self.file = "data/" + file + ".csv"
@@ -28,7 +30,7 @@ class CsvStorage(Storage):
         data.to_csv(self.file, index=False)
 
 
-class PostgresStorage(Storage):
-    """Хранение данных в таблицах бд Postgres"""
+class SqliteStorage(Storage):
+    """Store data using sqlite3 tables."""
 
     pass

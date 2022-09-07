@@ -23,7 +23,7 @@ class UserInterface(ABC):
 
 class CLIInterface(UserInterface):
     def print_theory(self, criterion: int, display_width=80) -> None:
-        """Выводит теорию по программе для заданного номера критерия"""
+        """Prints theory text for given criterion number."""
         with open(f"theory/criterion_{criterion}.txt", "r") as file:
             theory = file.read()
         for paragraph in theory.split("\n"):
@@ -37,19 +37,20 @@ class CLIInterface(UserInterface):
             print(formatted_paragraph)
 
     def print_vibrations(self, criterion: Criterion):
+        """Prints predicted vibrations for the user engine."""
         print(f"Прогнозные значения вибраций двигателя на частотных полосах:")
         for level in criterion.engine_vibrations.keys():
             print(f"{level}: {criterion.engine_vibrations[level]}")
 
     def get_preferences(self) -> Preferences:
-        """Запрашивает у пользователя настройки программы"""
+        """Requests user preferences, to set up the application."""
         base_vibration_level = float(input("Задайте базовый уровень вибрации в дБ: "))
         criterion = int(input("Задайте номер критерия для расчета (1, 2): "))
         print("\n")
         return Preferences(base_vibration_level, criterion)
 
     def get_user_engine(self) -> Engine:
-        """Запрашивает у пользователя данные двигателя"""
+        """Requests engine data from the user."""
         engine = Engine()
         print("\nВведите данные двигателя:")
         engine["name"] = input("Марка: ")
@@ -74,6 +75,7 @@ class CLIInterface(UserInterface):
         return engine
 
     def _center_text(self, text, display_width):
+        """Centers a line of text relative to given display_width."""
         output = ""
         if len(text) > display_width:
             text = self._wrap_text(text, display_width)
@@ -85,6 +87,7 @@ class CLIInterface(UserInterface):
         return output
 
     def _wrap_text(self, text, display_width):
+        """Wraps text into lines of length less or equal to display_width."""
         lines = 0
         length = 0
         output = ""

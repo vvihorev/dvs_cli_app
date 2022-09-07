@@ -5,22 +5,23 @@ from storage import CsvStorage
 
 
 def main():
-    # Create storage for input and output data.
+    # Create storage for input data.
     engine_storage = CsvStorage("base_engines")
+    table_engines = engine_storage.load()
+    # Create storage for output data.
     reg_coeficients_storage = CsvStorage("regression")
     B_D_storage = CsvStorage("B_D")
     vibrations_storage = CsvStorage("vibrations")
-    table_engines = engine_storage.load()
 
-    # Get user preferences and engine data.
+    # Get user preferences and user engine data.
     ui = CLIInterface()
     preferences = ui.get_preferences()
     ui.print_theory(preferences.criterion)
-    engine = ui.get_user_engine()
+    user_engine = ui.get_user_engine()
 
     # Calculate critetion required by user.
     calculator = VibrationsCalculator(preferences, table_engines)
-    calculator.predict(engine)
+    calculator.predict(user_engine)
     criterion = calculator.criterion
     ui.print_vibrations(criterion)
 
