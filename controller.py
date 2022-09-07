@@ -7,12 +7,11 @@ import sqlite3
 
 def main():
     # Create storage for input and output data.
-    con = sqlite3.connect('db.sqlite')
-
-    engine_storage = SqliteStorage(con, "base_engines")
-    reg_coeficients_storage = SqliteStorage(con, "regression")
-    B_D_storage = SqliteStorage(con, "B_D")
-    vibrations_storage = SqliteStorage(con, "vibrations")
+    db = SqliteStorage('db.sqlite')
+    engine_storage = db.use_table("base_engines")
+    reg_coeficients_storage = db.use_table("regression")
+    B_D_storage = db.use_table("B_D")
+    vibrations_storage = db.use_table("vibrations")
     table_engines = engine_storage.load()
 
     # Get user preferences and user engine data.
@@ -31,9 +30,7 @@ def main():
     reg_coeficients_storage.save(criterion.results.df_regression)
     B_D_storage.save(criterion.results.df_B_D)
     vibrations_storage.save(criterion.results.df_vibrations)
-
-    con.commit()
-    con.close()
+    db.close()
 
 
 if __name__ == "__main__":
