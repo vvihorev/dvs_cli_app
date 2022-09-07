@@ -31,19 +31,6 @@ class CsvStorage(Storage):
         data.to_csv(self.file, index=False)
 
 
-class SqliteStorage:
-    """Store data using sqlite3 tables."""
-    def __init__(self, db_filename: str) -> None:
-        self.con = sqlite3.connect(db_filename)
-
-    def use_table(self, table_name: str) -> TableStorage:
-        return TableStorage(self.con, table_name)
-
-    def close(self) -> None:
-        self.con.commit()
-        self.con.close()
-
-
 class TableStorage(Storage):
     """Individual table in SqliteStorage."""
     def __init__(self, con: sqlite3.Connection, table_name: str):
@@ -55,3 +42,16 @@ class TableStorage(Storage):
 
     def save(self, data: pd.DataFrame) -> None:
         data.to_sql(self.table_name, self.con, if_exists='replace')
+
+
+class SqliteStorage:
+    """Store data using sqlite3 tables."""
+    def __init__(self, db_filename: str) -> None:
+        self.con = sqlite3.connect(db_filename)
+
+    def use_table(self, table_name: str) -> TableStorage:
+        return TableStorage(self.con, table_name)
+
+    def close(self) -> None:
+        self.con.commit()
+        self.con.close()

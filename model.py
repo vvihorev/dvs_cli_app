@@ -147,10 +147,23 @@ class FirstCriterion(Criterion):
         self.regression_variables = ["C_1", "c"]
 
     def calculate_B_D(self, df_frequency_group: pd.DataFrame, frequency: str):
-        pass
+        """Calculates B and D vectors for engines of one group and one frequency"""
+        df = df_frequency_group
+        res = pd.DataFrame()
+        res['B'] = -df.S_n * df.omega * df.N_max * df.delta / (df[frequency] * df.D_czb)
+        res['D'] = -df.D_czvt / df.D_czb
+        return res
 
     def predict_vibration(self, df, C_1, c):
-        pass
+        assert len(df.group.unique()) == 1, f"Usage: pass one group of engines at a time as 'df'"
+        return (
+            C_1
+            * df.omega
+            * df.S_n
+            * df.N_max
+            * df.delta
+            / (c * df.D_czb + df.D_czvt)
+        )
 
 
 class SecondCriterion(Criterion):
