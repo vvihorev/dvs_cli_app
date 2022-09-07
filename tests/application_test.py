@@ -12,7 +12,7 @@ class CliDisplayTest(unittest.TestCase):
 
     def test_sample_input(self):
         sys.stdin = StringIO(
-            f"86\n2\nasdf\n123\n123\n123\n123\n123\n123\n123\n123\n123\n123\n"
+            "86\n2\ntest engine\n500\n294\n0.54\n5.1\n0.36\n16490\n0.0002\n81780\n13610\n1\n"
         )
         controller.main()
 
@@ -32,10 +32,10 @@ class SecondCriteriaCalculationsTest(unittest.TestCase):
                 "p_z": 5.1,
                 "S_n": 0.36,
                 "N_max": 16490,
-                "delta": 500,
-                "D_czb": 0.0002,
+                "delta": 0.0002,
                 "D_czvt": 13610,
-                "D_c": 81780,
+                "D_czb": 81780,
+                "D_c": 1,
             }
         )
         engine["group"] = assign_engine_group(engine["nu"])
