@@ -1,5 +1,7 @@
 __pycache__
-data/*
+data/B_D.csv
+data/regression.csv
+data/vibrations.csv
 .vscode/settings.json
 .vscode/launch.json
-theory/criterion_2.txt
+data/hand_calculated_results.xlsx
